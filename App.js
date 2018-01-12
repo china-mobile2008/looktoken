@@ -15,66 +15,51 @@
  import Icon from 'react-native-vector-icons/FontAwesome'
  import {Dimensions} from 'react-native'
 
+ import MarketList from './app/MarketList'
+ import Mine from './app/Mine'
+
 
  const deviceW = Dimensions.get('window').width
 
  const basePx = 375
- const iconSize = 25
+ const iconSize = 25 //ICON image size
+ const tabTitles = [
+   'MarketList','Mine'
+ ];
+
 
  function px2dp(px) {
    return px *  deviceW / basePx
  }
 
- class Home extends Component {
-   render() {
-     return (
-       <View style={styles.container}>
-         <Text style={styles.welcome}>
-           Home
-         </Text>
-       </View>
-     )
-   }
- }
-
- class Profile extends Component {
-   render() {
-     return (
-       <View style={styles.container}>
-         <Text style={styles.welcome}>
-           Profile
-         </Text>
-       </View>
-     )
-   }
- }
-
  export default class RootNavigator extends Component {
    state= {
-     selectedTab: 'home'
+     selectedTab: tabTitles[0]
    };
 
    render() {
      return (
        <TabNavigator style={styles.container}>
-         <TabNavigator.Item
-           selected={this.state.selectedTab === 'home'}
-           title="Home"
-           selectedTitleStyle={{color: "#3496f0"}}
-           renderIcon={() => <Icon name="home" size={px2dp(iconSize)} color="#666"/>}
-           renderSelectedIcon={() => <Icon name="home" size={px2dp(iconSize)} color="#3496f0"/>}
 
-           onPress={() => this.setState({selectedTab: 'home'})}>
-           <Home/>
-         </TabNavigator.Item>
          <TabNavigator.Item
-           selected={this.state.selectedTab === 'profile'}
-           title="Profile"
-           selectedTitleStyle={{color: "#3496f0"}}
+           selected={this.state.selectedTab === tabTitles[0]}
+           title={tabTitles[0]}
+           selectedTitleStyle={styles.naviagtorTitleSelected}
+           titleStyle={styles.navigatorTitle}
            renderIcon={() => <Icon name="user" size={px2dp(iconSize)} color="#666"/>}
            renderSelectedIcon={() => <Icon name="user" size={px2dp(iconSize)} color="#3496f0"/>}
-           onPress={() => this.setState({selectedTab: 'profile'})}>
-           <Profile/>
+           onPress={() => this.setState({selectedTab: tabTitles[0]})}>
+           <MarketList/>
+         </TabNavigator.Item>
+         <TabNavigator.Item
+           selected={this.state.selectedTab === tabTitles[1]}
+           title={tabTitles[1]}
+           selectedTitleStyle={styles.naviagtorTitleSelected}
+           titleStyle={styles.navigatorTitle}
+           renderIcon={() => <Icon name="user" size={px2dp(iconSize)} color="#666"/>}
+           renderSelectedIcon={() => <Icon name="user" size={px2dp(iconSize)} color="#3496f0"/>}
+           onPress={() => this.setState({selectedTab: tabTitles[1]})}>
+           <Mine />
          </TabNavigator.Item>
        </TabNavigator>
      );
@@ -98,6 +83,13 @@
      color: '#333333',
      marginBottom: 5,
    },
+   navigatorTitle:{
+    fontSize: 14,
+   },
+   naviagtorTitleSelected:{
+     fontSize: 14,
+     color: "#3496f0"
+   }
  });
 
  // AppRegistry.registerComponent('TabDemo', () => TabDemo);
